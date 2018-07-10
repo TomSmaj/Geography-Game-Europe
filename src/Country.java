@@ -11,24 +11,28 @@ import javax.swing.JLabel;
 public class Country extends JLabel {
 
         String name;
-        private BufferedImage myPic1, myPic2;
+        private BufferedImage nameImage, blank;
         boolean revealed = false;
+        
+        Hilight hob;
 
-        public Country(String pic1, String pic2, String name) throws IOException {
+        public Country(String pic1, String pic2, String name, Hilight hob) throws IOException {
             this.name = name;
 
-            myPic1 = ImageIO.read(new File(pic1));
-            myPic2 = ImageIO.read(new File(pic2));
+            nameImage = ImageIO.read(new File(pic1));
+            blank = ImageIO.read(new File(pic2));
+            
+            this.hob = hob;
             
             //set image to pic2, which is a blank image
-            setIcon(new ImageIcon(myPic2));
-            addMouseListener(new ClickListener(this));
+            setIcon(new ImageIcon(blank));
+            addMouseListener(new ClickListener(this, this.hob));
 
         }
         
         public Country(String pic1) throws IOException {
-        	myPic1 = ImageIO.read(new File(pic1));
-        	setIcon(new ImageIcon(myPic1));
+        	nameImage = ImageIO.read(new File(pic1));
+        	setIcon(new ImageIcon(nameImage));
         }
 
         public String getName() {
@@ -37,7 +41,9 @@ public class Country extends JLabel {
 
         public void setVisible() {
         	//set image to pic1, which is the country's name
-        	setIcon(new ImageIcon(myPic1));
+        	setIcon(new ImageIcon(nameImage));
         	revealed = true;
         }
+        
+
     }
